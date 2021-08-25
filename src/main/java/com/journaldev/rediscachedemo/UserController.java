@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,11 +21,13 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @Cacheable(value = "users", key = "#userId", unless = "#result.followers < 12000")
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    public User getUser(@PathVariable String userId) {
+    @Cacheable(value = "users", key = "#userId" )
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public User getUser(@PathVariable Long userId) {
         LOG.info("Getting user with ID {}.", userId);
-        return userRepository.findOne(Long.valueOf(userId));
+         User user = userRepository.findOne(1L);
+         LOG.info("User ::"+user);  
+         return user;
     }
 
     @CachePut(value = "users", key = "#user.id")

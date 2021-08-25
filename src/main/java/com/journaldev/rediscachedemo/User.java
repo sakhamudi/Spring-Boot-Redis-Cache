@@ -10,17 +10,19 @@ public class User implements Serializable {
     private static final long serialVersionUID = 7156526077883281623L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+     Long id;
+    
     @Column(name="name")
-    private String name;
+     String name;
+    
     @Column(name="followers")
-    private long followers;
+     String followers;
 
     public User() {
     }
 
-    public User(String name, long followers) {
+    public User(String name, String followers) {
         this.name = name;
         this.followers = followers;
     }
@@ -41,16 +43,16 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public long getFollowers() {
+    public String getFollowers() {
         return followers;
     }
 
-    public void setFollowers(long followers) {
+    public void setFollowers(String followers) {
         this.followers = followers;
     }
-
+   
     @Override
-    public String toString() {
-        return String.format("User{id=%d, name='%s', followers=%d}", id, name, followers);
-    }
+	public String toString() {
+		return "Tutorial [id=" + id + ", name=" + name + ", followers=" + followers + "]";
+	}
 }
